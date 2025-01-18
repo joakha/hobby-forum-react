@@ -1,13 +1,13 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { ChangeEvent, SyntheticEvent, useState } from "react"
-import { hobbyAuth, hobbyDb } from "../../firebase/firebaseConfig";
-import { doc, setDoc } from "firebase/firestore"
-import { Link } from "react-router";
-import { useNavigate } from "react-router";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { ChangeEvent, FormEvent, useState } from "react"
+import { hobbyAuth } from "../../firebase/firebaseConfig";
+import { Link, Navigate } from "react-router";
+import { LoginProps } from "../../types/types";
+import useUser from "../../hooks/useUser";
 
-const Login = () => {
+const Login = ({ navigate }: LoginProps) => {
 
-  let navigate = useNavigate();
+  const { appUser } = useUser();
 
   type LoginInfo = {
     email: string,
@@ -20,10 +20,10 @@ const Login = () => {
     setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value });
   }
 
-  const loginUser = async (e: SyntheticEvent) => {
+  const loginUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      signInWithEmailAndPassword(hobbyAuth, loginInfo.email, loginInfo.password)
+      await signInWithEmailAndPassword(hobbyAuth, loginInfo.email, loginInfo.password)
       navigate("/profile");
     } catch (error) {
       console.log(error);
@@ -32,17 +32,20 @@ const Login = () => {
 
   return (
     <section className="flex flex-col items-center border-2 border-black h-96 pt-6">
+      {appUser && <Navigate to={"/profile"} />}
       <h2 className="text-xl mb-3">Login</h2>
       <form onSubmit={loginUser} className="flex flex-col items-center mb-12">
         <input
           className="h-10 w-96 border-2 px-2 mb-5 mx-12"
-          type="email" name="email"
+          type="email"
+          name="email"
           placeholder="Email"
           onChange={handleChange}
         />
         <input
           className="h-10 w-96 border-2 px-2 mb-5"
-          type="password" name="password"
+          type="password"
+          name="password"
           placeholder="Password"
           onChange={handleChange}
         />

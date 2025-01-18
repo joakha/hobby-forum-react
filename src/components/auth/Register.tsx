@@ -1,12 +1,14 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { ChangeEvent, SyntheticEvent, useState } from "react"
+import { ChangeEvent, FormEvent, useState } from "react"
 import { hobbyAuth, hobbyDb } from "../../firebase/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore"
-import { useNavigate } from "react-router";
+import { RegisterProps } from "../../types/types";
+import useUser from "../../hooks/useUser";
+import { Navigate } from "react-router";
 
-const Register = () => {
+const Register = ({ navigate }: RegisterProps) => {
 
-  let navigate = useNavigate();
+  const { appUser } = useUser();
 
   type RegisterInfo = {
     username: string,
@@ -20,18 +22,18 @@ const Register = () => {
     setRegisterinfo({ ...registerInfo, [e.target.name]: e.target.value });
   }
 
-  const registerUser = async (e: SyntheticEvent) => {
+  const registerUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
       await createUserWithEmailAndPassword(hobbyAuth, registerInfo.email, registerInfo.password)
       const user = hobbyAuth.currentUser;
       if (user) {
-        await setDoc(doc(hobbyDb, "Users", user?.uid), {
+        await setDoc(doc(hobbyDb, "Users", user.uid), {
           email: registerInfo.email,
-          username: registerInfo.username
+          username: registerInfo.username,
+          uid: user.uid
         })
       }
-      console.log(user);
       navigate("/login");
     } catch (error) {
       console.log(error);
@@ -40,6 +42,7 @@ const Register = () => {
 
   return (
     <section className="flex flex-col items-center border-2 border-black h-96 pt-6">
+      {appUser && <Navigate to={"/profile"} />}
       <h2 className="text-xl mb-3">Register</h2>
       <form onSubmit={registerUser} className="flex flex-col items-center">
         <input
