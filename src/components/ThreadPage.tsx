@@ -36,10 +36,10 @@ const ThreadPage = () => {
     return (
         <>
             <button
-                className='bg-amber-400 p-2 rounded-lg text-white'
-                onClick={() => navigate("/")}
+                className='bg-amber-400 p-2 rounded-lg text-white mt-14'
+                onClick={() => navigate(-1)}
             >
-                Back to front page
+                Go Back
             </button>
             {loadingError ? (
                 <p className='text-red-600 mt-12'>Error getting thread data!</p>

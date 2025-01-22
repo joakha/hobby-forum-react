@@ -10,7 +10,7 @@ const ThreadCard = ({ thread }: ThreadCardProps) => {
     let navigate = useNavigate();
 
     return (
-        <article className='w-96 my-10 px-2 py-2 bg-amber-500 text-white rounded-lg'>
+        <article className='w-96 mx-5 my-10 px-2 py-2 bg-amber-500 text-white rounded-lg'>
             <div className='text-2xl'>
                 <p>{thread.title}</p>
             </div>

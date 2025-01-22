@@ -37,14 +37,15 @@ const UserProfile = () => {
         <>
             {!appUser && <Navigate to={"/login"} />}
             <section>
-                <article className="flex flex-col items-center border-2 border-black h-96 pt-6 w-96">
+                <article className="flex flex-col items-center border-2 border-black h-96 pt-6 w-96 mt-14">
                     <h2 className="text-xl mb-3">Your Profile</h2>
                     <p>{appUser?.username}</p>
                     <p>{appUser?.email}</p>
                 </article>
             </section>
-            <section>
-                <h3 className="text-center mt-10 text-3xl text-amber-600">Your threads</h3>
+            <h3 className="text-center mt-10 text-3xl text-amber-600">Your threads</h3>
+            <section className="flex flex-row flex-wrap">
+                <article></article>
                 {loadingUserThreads ? (
                     <p className="mt-6">Loading user threads...</p>
                 ) : userThreads.length === 0 ? (

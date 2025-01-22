@@ -33,7 +33,7 @@ const MainContent = () => {
         {/* Render button and modal only if user is logged in */}
         {appUser && <ThreadModal />}
       </section>
-      <section>
+      <section className="flex flex-row flex-wrap">
         {threads.length > 0 ? (
           threads.map((thread, index) => <ThreadCard thread={thread} key={index} />)
         ) : (

@@ -17,7 +17,7 @@ const Navbar = ({ navigate }: NavigateProp) => {
   }
 
   return (
-    <nav className='flex justify-between items-center w-full h-24 bg-amber-500 mb-32 text-white'>
+    <nav className='flex z-50 sticky top-0 pl-20 justify-between items-center w-full h-24 bg-amber-500 text-white'>
       <h1 className="px-10 text-3xl"><Link to={"/"}>Hobby Forum Project</Link></h1>
       <div className="px-10 flex gap-6">
         {appUser ? (

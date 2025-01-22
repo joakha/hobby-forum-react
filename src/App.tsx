@@ -5,6 +5,7 @@ import Login from "./components/auth/Login";
 import UserProfile from "./components/UserProfile";
 import MainContent from "./components/MainContent";
 import ThreadPage from "./components/ThreadPage";
+import Sidebar from "./components/Sidebar";
 
 function App() {
 
@@ -13,7 +14,8 @@ function App() {
   return (
     <>
       <Navbar navigate={navigate} />
-      <main className="flex flex-col items-center">
+      <Sidebar />
+      <main className="flex flex-col items-center ml-48">
         <Routes>
           <Route path="/" element={<MainContent />} />
           <Route path="/register" element={<Register navigate={navigate} />} />

@@ -57,6 +57,7 @@ const ThreadModal = () => {
     <article>
       <Button type="primary"
         onClick={showModal}
+        style={{backgroundColor: "#FFC107", marginTop: "56px"}}
       >
         Create New Thread
       </Button>
