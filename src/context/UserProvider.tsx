@@ -3,7 +3,7 @@ import { hobbyAuth, hobbyDb } from "../firebase/firebaseConfig"
 import { onAuthStateChanged } from "firebase/auth"
 import { doc, getDoc } from "firebase/firestore"
 import { User } from "firebase/auth"
-import { UserInfo } from "../types/types"
+import { UserForm, UserInfo } from "../types/types"
 
 type UserContextType = {
   appUser: UserInfo | null,
@@ -30,7 +30,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
         const docRef = doc(hobbyDb, "Users", user.uid)
         const docSnap = await getDoc(docRef);
         //docSnap includes all needed user info
-        setAppUser(docSnap.data() as UserInfo);
+        setAppUser({...docSnap.data() as UserForm, uid: user.uid});
         setLoggedIn(true);
       } else {
         setAppUser(null);

@@ -31,7 +31,6 @@ const Register = ({ navigate }: NavigateProp) => {
         await setDoc(doc(hobbyDb, "Users", user.uid), {
           email: registerInfo.email,
           username: registerInfo.username,
-          uid: user.uid
         })
       }
       navigate("/profile");

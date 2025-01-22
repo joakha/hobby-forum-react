@@ -15,7 +15,7 @@ const UserProfile = () => {
     const getUserThreads = async () => {
         setLoadingUserThreads(true);
         const pendingThreads: Thread[] = [];
-        const userThreadQuery = query(collection(hobbyDb, "Threads"), where("appUser", "==", appUser?.uid));
+        const userThreadQuery = query(collection(hobbyDb, "Threads"), where("appUser", "==", appUser?.uid as string));
         const querySnapshot = await getDocs(userThreadQuery);
 
         querySnapshot.forEach((doc) => {
@@ -28,8 +28,10 @@ const UserProfile = () => {
     }
 
     useEffect(() => {
-        getUserThreads();
-    }, []);
+        if (appUser) {
+            getUserThreads();
+        }
+    }, [appUser]);
 
     return (
         <>

@@ -34,10 +34,10 @@ const MainContent = () => {
         {appUser && <ThreadModal />}
       </section>
       <section>
-        {threads ? (
+        {threads.length > 0 ? (
           threads.map((thread, index) => <ThreadCard thread={thread} key={index} />)
         ) : (
-          <p>No threads to show!</p>
+          <p className="mt-4">No threads to show!</p>
         )}
       </section>
     </>

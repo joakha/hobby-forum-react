@@ -4,11 +4,16 @@ export type NavigateProp = {
     navigate: NavigateFunction
 }
 
+export type UserForm = {
+    username: string,
+    email: string,
+}
+
 export type UserInfo = {
     username: string,
     email: string,
     uid: string
-  }
+}
 
 export type Thread = {
     uid: string,
