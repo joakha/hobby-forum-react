@@ -2,11 +2,11 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ChangeEvent, FormEvent, useState } from "react"
 import { hobbyAuth, hobbyDb } from "../../firebase/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore"
-import { RegisterProps } from "../../types/types";
+import { NavigateProp } from "../../types/types";
 import useUser from "../../hooks/useUser";
-import { Navigate } from "react-router";
+import { Link, Navigate } from "react-router";
 
-const Register = ({ navigate }: RegisterProps) => {
+const Register = ({ navigate }: NavigateProp) => {
 
   const { appUser } = useUser();
 
@@ -34,9 +34,9 @@ const Register = ({ navigate }: RegisterProps) => {
           uid: user.uid
         })
       }
-      navigate("/login");
+      navigate("/profile");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -44,7 +44,7 @@ const Register = ({ navigate }: RegisterProps) => {
     <section className="flex flex-col items-center border-2 border-black h-96 pt-6">
       {appUser && <Navigate to={"/profile"} />}
       <h2 className="text-xl mb-3">Register</h2>
-      <form onSubmit={registerUser} className="flex flex-col items-center">
+      <form onSubmit={registerUser} className="flex flex-col items-center mb-6">
         <input
           className="h-10 w-96 border-2 px-2 mb-5 mx-12"
           type="text" name="username"
@@ -71,6 +71,9 @@ const Register = ({ navigate }: RegisterProps) => {
           Register
         </button>
       </form>
+      <div>
+        <p>Already a user? Login <Link className="text-amber-500" to={"/login"}>here</Link></p>
+      </div>
     </section>
   )
 }

@@ -2,10 +2,10 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { ChangeEvent, FormEvent, useState } from "react"
 import { hobbyAuth } from "../../firebase/firebaseConfig";
 import { Link, Navigate } from "react-router";
-import { LoginProps } from "../../types/types";
+import { NavigateProp } from "../../types/types";
 import useUser from "../../hooks/useUser";
 
-const Login = ({ navigate }: LoginProps) => {
+const Login = ({ navigate }: NavigateProp) => {
 
   const { appUser } = useUser();
 
@@ -26,7 +26,7 @@ const Login = ({ navigate }: LoginProps) => {
       await signInWithEmailAndPassword(hobbyAuth, loginInfo.email, loginInfo.password)
       navigate("/profile");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -34,7 +34,7 @@ const Login = ({ navigate }: LoginProps) => {
     <section className="flex flex-col items-center border-2 border-black h-96 pt-6">
       {appUser && <Navigate to={"/profile"} />}
       <h2 className="text-xl mb-3">Login</h2>
-      <form onSubmit={loginUser} className="flex flex-col items-center mb-12">
+      <form onSubmit={loginUser} className="flex flex-col items-center mb-6">
         <input
           className="h-10 w-96 border-2 px-2 mb-5 mx-12"
           type="email"
@@ -58,7 +58,7 @@ const Login = ({ navigate }: LoginProps) => {
         </button>
       </form>
       <div>
-        <p>Not a user? <Link className="text-amber-500" to={"/register"}>Register here</Link></p>
+        <p>Not a user? Register <Link className="text-amber-500" to={"/register"}>here</Link></p>
       </div>
     </section>
   )

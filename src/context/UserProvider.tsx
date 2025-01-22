@@ -3,12 +3,7 @@ import { hobbyAuth, hobbyDb } from "../firebase/firebaseConfig"
 import { onAuthStateChanged } from "firebase/auth"
 import { doc, getDoc } from "firebase/firestore"
 import { User } from "firebase/auth"
-
-type UserInfo = {
-  username: string,
-  email: string,
-  uid: string
-}
+import { UserInfo } from "../types/types"
 
 type UserContextType = {
   appUser: UserInfo | null,
